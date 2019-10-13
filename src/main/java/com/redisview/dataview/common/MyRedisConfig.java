@@ -1,0 +1,32 @@
+package com.redisview.dataview.common;
+
+import lombok.Data;
+import lombok.ToString;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+
+@Component
+@Data
+@Order(1)
+@ToString
+@Configuration
+@ConfigurationProperties(prefix = "spring.redis")
+public class MyRedisConfig implements Ordered {
+    private String host;
+    private Integer port;
+    private String timeout;
+    private RedisPoollConfig pool;
+
+
+    @Override
+    public int getOrder() {
+        return 1;
+    }
+    static{
+        System.out.println("myredisConfig ..........................");
+    }
+}

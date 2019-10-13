@@ -1,0 +1,14 @@
+server:
+    port: 8080
+spring:
+    application:
+      name: DataviewApplication
+    redis:
+      host: 20.78.4.101
+      port: 6379
+      timeout: 10000
+      pool:
+        max-active: 10
+        max-total: 10
+        max-idle: 10
+        max-wait: 1
