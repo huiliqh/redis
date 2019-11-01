@@ -21,6 +21,37 @@ public class MyRedisConfig implements Ordered {
     private String timeout;
     private RedisPoollConfig pool;
 
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
+    }
+
+    public String getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(String timeout) {
+        this.timeout = timeout;
+    }
+
+    public RedisPoollConfig getPool() {
+        return pool;
+    }
+
+    public void setPool(RedisPoollConfig pool) {
+        this.pool = pool;
+    }
 
     @Override
     public int getOrder() {

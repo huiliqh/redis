@@ -2,8 +2,8 @@ package com.redisview.dataview.pojo;
 
 import lombok.Data;
 import lombok.ToString;
-import org.junit.experimental.theories.suppliers.TestedOn;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 @Data
@@ -20,7 +20,55 @@ public class DataMessage {
 
     private String equipment;
 
-    private Map<String,String> small;
+//    private Map<String,String> small;
+    private ArrayList<MyData> myData;
 
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getPoweStation() {
+        return poweStation;
+    }
+
+    public void setPoweStation(String poweStation) {
+        this.poweStation = poweStation;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    public String getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(String equipment) {
+        this.equipment = equipment;
+    }
+
+    public ArrayList<MyData> getMyData() {
+        return myData;
+    }
+
+    public void setMyData(ArrayList<MyData> myData) {
+        this.myData = myData;
+    }
 }

@@ -11,14 +11,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @EntityScan("com.redisview.dataview")
 public class DataviewApplicationTests {
-//    @Autowired
-//    MessageServiceImpl messageService ;
-//
-//    @Test
-//    public void contextLoads() {
-//
-//       messageService.redisMessage();
-//
-//    }
+
+    @Test
+    public void contextLoads() {
+        return;
+
+    }
 
 }

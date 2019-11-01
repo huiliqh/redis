@@ -15,4 +15,20 @@ public class ResponseMessage {
         this.dateMessage = dateMessage;
         this.statistics = statistics;
     }
+
+    public ArrayList<DataMessage> getDateMessage() {
+        return dateMessage;
+    }
+
+    public void setDateMessage(ArrayList<DataMessage> dateMessage) {
+        this.dateMessage = dateMessage;
+    }
+
+    public ViewStatistics getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(ViewStatistics statistics) {
+        this.statistics = statistics;
+    }
 }

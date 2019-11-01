@@ -1,6 +1,7 @@
 package com.redisview.dataview.service.impl;
 
 import com.redisview.dataview.pojo.DataMessage;
+import com.redisview.dataview.pojo.MyData;
 import com.redisview.dataview.pojo.ResponseMessage;
 import com.redisview.dataview.pojo.ViewStatistics;
 import com.redisview.dataview.service.MessageService;
@@ -13,10 +14,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Order(100)
@@ -47,17 +45,20 @@ public class MessageServiceImpl implements MessageService, CommandLineRunner {
         Set<String> keys = jedis.keys("*");
 
         System.out.println("总的key 数量为：" + keys.size());
+        System.out.println(new Date());
         viewStatistics.setKeysNum(keys.size());//总key 数
-
 
         int countNum = 0;
         int conutMis = 0;
         int countCros = 0;
         int count = 0;
-        ArrayList<String> misckeMes = new ArrayList<String>();
+        ArrayList<MyData> misckeMes = new ArrayList<>();
         HashMap<String, String> crossMes = new HashMap<String, String>();
 
+
+        MyData misckeMess = null;
         for (String key : keys) {
+            misckeMess = new MyData();
             if (countNum % 100 == 0) {
                 System.out.println("解析剩余数量为：" + (keys.size() - count));
 
@@ -66,9 +67,11 @@ public class MessageServiceImpl implements MessageService, CommandLineRunner {
             count++;
             if (!key.contains("realtime")) {
                 System.out.println("非需要解析的数据 key：" + key);
-
                 conutMis++;
-                misckeMes.add(key);
+                misckeMess.setKey(key);
+                misckeMess.setValue("zero");
+                //封装
+                misckeMes.add(misckeMess);
                 continue;
             }
             //第一个key
@@ -83,21 +86,27 @@ public class MessageServiceImpl implements MessageService, CommandLineRunner {
                 continue;
             }
 
-            viewStatistics.setMistackeMes(misckeMes);//非解析
-            viewStatistics.setMistakeNum(conutMis);
-
-            viewStatistics.setResidueNum(countNum);
-
-            viewStatistics.setCrossNum(countCros);//越过
-            viewStatistics.setCrossMes(crossMes);//剩余
-
 
             encapsulation(data, key, dataValue);
         }
+        viewStatistics.setMisckeMes(misckeMes);//非解析
+        viewStatistics.setMistakeNum(conutMis);
+
+        viewStatistics.setResidueNum(countNum);
+
+        viewStatistics.setCrossNum(countCros);//越过
+        viewStatistics.setCrossMes(crossMes);//剩余
     }
 
     private void encapsulation(ArrayList<DataMessage> data, String key, String dataValue) {
         DataMessage message = new DataMessage();
+        if (key.contains("ym")){
+            key="遥脉";
+        }else if (key.contains("yc")){
+            key="遥测";
+        }else if (key.contains("yx")){
+            key="遥信";
+        }
         message.setKey(key);
 
         // dataValue 分割 0：电站编号 1：时间 2：数据的转发类型（实时数据或/阈值）3：设备编号 4：数据 {（ym，yc，yx）+值}
@@ -113,26 +122,33 @@ public class MessageServiceImpl implements MessageService, CommandLineRunner {
         //将每一个 设备对应的值 做一次切割 得到结果 设备编号对应-值
         String[] split = datas.split("\\|");
 
-        Map<String, String> small = new HashMap<String, String>();
+//        Map<String, String> small = new HashMap<String, String>();
+        ArrayList<MyData> myDatas = new ArrayList<MyData>();
+        MyData myData =null;
         for (String dataMes : split) {
+             myData = new MyData();
             //将设备的编号与 对应的 值 通过“_”切割 得到新的数组
             String[] strings = dataMes.split("_");
             try {
-                small.put(strings[0], strings[1]);
+//                small.put(strings[0], strings[1]);
+                myData.setKey(strings[0]);
+                myData.setValue(strings[1]);
             } catch (Exception e) {
                 System.out.print("数据解析错误[内！] -}错误数据:");
                 System.out.println(datas);
                 System.out.println("异常输出完毕");
             }
             //将对应的点号 与 只封装 成键值对
+            myDatas.add(myData);
         }
-        message.setSmall(small);
+        message.setMyData(myDatas);
         data.add(message);
     }
 
 
     @Override
     public void run(String... args) throws Exception {
+        //init
         jedis = redisUtil.getJedis();
     }
 }
