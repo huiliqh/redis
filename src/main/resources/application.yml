@@ -1,0 +1,78 @@
+server:
+    port: 30111
+spring:
+    application:
+      name: DataviewApplication
+    redis:
+      host: 20.78.4.101
+      port: 6379
+      timeout: 10000
+      pool:
+        max-active: 10
+        max-total: 10
+        max-idle: 10
+        max-wait: 1
+    jpa:
+      database: MYSQL
+      show-sql: true
+      hibernate:
+        ddl-auto: none
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      properties:
+        hibernate:
+            dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+            format_sql: false
+    power:
+      qingChang: 630035
+      xingNengGuagFu: 630016
+      zhuoERXiTieShan: 630012
+      zhuMa: 632544
+      cuiFeng: 630023
+      haiJing: 630009
+      sanXiaGongHe: 630056
+      huiFeng: 630062
+      yiXingXunSheng: 630006
+      xiTieShan: 630011
+      fengDuoFeng: 630033
+      geErMuGuangFu: 630020
+      quanYnag: 630037
+      xiayang1: 630022
+      zhigao1: 630036
+    datasource:
+      hikari:
+        pool-name: HikariPool
+        minimum-idle: 5
+        maximum-pool-size: 10
+        idle-timeout: 60000
+        max-lifetime: 1800000
+      dynamic:
+        primary: master
+        datasource:
+          master:
+            driver-class-name: com.mysql.jdbc.Driver
+            url: jdbc:mysql://20.78.4.23/qhzx_sxgf
+            username: root
+            password: root
+          slave1:
+            driver-class-name: com.mysql.jdbc.Driver
+            url: jdbc:mysql://20.78.4.23/qhzx
+            username: root
+            password: root
+#          slave2:
+#            driver-class-name: com.mysql.jdbc.Driver
+#            url: jdbc:mysql://20.78.4.103/hhh1
+#            username: root
+#            password: root
+#          slave3:
+#            driver-class-name: com.mysql.jdbc.Driver
+#            url: jdbc:mysql://20.78.4.103/qhgt
+#            username: root
+#            password: root
+#          slave4:
+#            driver-class-name: com.mysql.jdbc.Driver
+#            url: jdbc:mysql://20.78.4.103/student
+#            username: root
+#            password: root
+
+
