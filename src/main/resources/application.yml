@@ -4,7 +4,7 @@ spring:
     application:
       name: DataviewApplication
     redis:
-      host: 8888888
+      host: 20.78.4.101
       port: 6379
       timeout: 10000
       pool:
@@ -51,14 +51,14 @@ spring:
         datasource:
           master:
             driver-class-name: com.mysql.jdbc.Driver
-            url: jdbc:mysql://8888888/qhzx_sxgf
-            username: 8888888
-            password: 8888888
+            url: jdbc:mysql://20.78.4.23/qhzx_sxgf
+            username: root
+            password: root
           slave1:
             driver-class-name: com.mysql.jdbc.Driver
-            url: jdbc:mysql://8888888/qhzx
-            username: 8888888
-            password: 8888888
+            url: jdbc:mysql://20.78.4.23/qhzx
+            username: root
+            password: root
 #          slave2:
 #            driver-class-name: com.mysql.jdbc.Driver
 #            url: jdbc:mysql://20.78.4.103/hhh1
