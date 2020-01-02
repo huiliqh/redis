@@ -16,9 +16,6 @@ public class MessageController {
     private MessageService service;
     @Autowired
     private DataBasesRestartService dataBasesRestartService;
-
-
-
     @GetMapping("/sx/{powerMessage}")
     @ResponseBody
     public ResponseMessage viewMessage(@PathVariable String powerMessage){

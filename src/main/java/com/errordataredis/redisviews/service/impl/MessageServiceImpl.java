@@ -23,7 +23,7 @@ import java.util.concurrent.Executors;
 @Service
 @Order(100)
 @DependsOn(value = {"initDataBasesMessageSlave_1"})
-public class MessageServiceImpl implements MessageService, CommandLineRunner {
+public class MessageServiceImpl implements MessageService {
     @Autowired
     @Qualifier(value = "redisUtil")
     private RedisUtil redisUtil;
@@ -49,12 +49,6 @@ public class MessageServiceImpl implements MessageService, CommandLineRunner {
         double time = (or - en);
         System.out.println("数据已处理完毕_所用耗时" + (time / 1000) + "秒");
         return new ResponseMessage(data, viewStatistics);
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
-        //init
-        jedis = redisUtil.getJedis();
     }
     @Override
     public String celanRedis(){

@@ -22,13 +22,16 @@ public class RedisUtil implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        init();
+    }
+
+    public void init() throws Exception {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxTotal(Integer.parseInt(redisConfig.getPool().getMax_total()));
         jedisPoolConfig.setMaxIdle(Integer.parseInt(redisConfig.getPool().getMax_idle()));
 //        jedisPool = new JedisPool(jedisPoolConfig, redisConfig.getHost(), redisConfig.getPort(),100000000);  //设置数据响应超时时间
         jedisPool = new JedisPool(jedisPoolConfig, redisConfig.getHost(), redisConfig.getPort());
     }
-
 
     public Jedis getJedis() {
         return jedisPool.getResource();
